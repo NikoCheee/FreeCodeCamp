@@ -31,30 +31,20 @@ class MyTestCase(unittest.TestCase):
                          ' ["11 + 4", "3801 - 2999", "1 + 2", "123 + 49", "1 - 9380"]')
 
     def test_too_many_problems(self):
-        test = arithmetic_arranger(['44 + 815', '909 - 2', '45 + 43', '123 + 49',
-          '888 + 40', '653 + 87'])
-        self.assertEqual(test, 'Error: Too many problems.', 'Expected calling "arithmetic_arranger()" '
-                                                            'with more than five problems to return'
-                                                            ' "Error: Too many problems."')
+        with self.assertRaises(Exception):
+            arithmetic_arranger(['44 + 815', '909 - 2', '45 + 43', '123 + 49', '888 + 40', '653 + 87'])
 
     def test_incorrect_operator(self):
-        test = arithmetic_arranger(['3 / 855', '3801 - 2', '45 + 43', '123 + 49'])
-        self.assertEqual(test,  "Error: Operator must be '+' or '-'.",
-                         '''Expected calling "arithmetic_arranger()" with a problem that uses the "/" 
-                            operator to return "Error: Operator must be '+' or '-'."''')
+        with self.assertRaises(Exception):
+            arithmetic_arranger(['3 / 855', '3801 - 2', '45 + 43', '123 + 49'])
 
     def test_too_many_digits(self):
-        test = arithmetic_arranger(['24 + 85215', '3801 - 2', '45 + 43', '123 + 49'])
-        self.assertEqual(test,  'Error: Numbers cannot be more than four digits.',
-                         'Expected calling "arithmetic_arranger()" with a problem that has a number '
-                         'over 4 digits long to return "Error: Numbers cannot be more than four digits."')
+        with self.assertRaises(Exception):
+            arithmetic_arranger(['24 + 85215', '3801 - 2', '45 + 43', '123 + 49'])
 
     def test_only_digits(self):
-        test = arithmetic_arranger(['98 + 3g5', '3801 - 2', '45 + 43', '123 + 49'])
-        self.assertEqual(test,  'Error: Numbers must only contain digits.',
-                         'Expected calling "arithmetic_arranger()" with a problem '
-                         'that contains a letter character in the number to return'
-                         ' "Error: Numbers must only contain digits."')
+        with self.assertRaises(Exception):
+            arithmetic_arranger(['98 + 3g5', '3801 - 2', '45 + 43', '123 + 49'])
 
     def test_two_problems_with_solutions(self):
         test = arithmetic_arranger(['3 + 855', '988 + 40'], True)

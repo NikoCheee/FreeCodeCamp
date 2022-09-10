@@ -1,4 +1,16 @@
 def arithmetic_arranger(problems, *args):
+    if len(problems) > 5:
+        raise Exception('Error: Too many problems.')
+    for problem in problems:
+        for let in problem:
+            if let.isalpha():
+                raise Exception('Error: Numbers must only contain digits.')
+        split = problem.split()
+        if split[1] not in '+-':
+            raise ValueError('Error: Operator must be "+" or "-".')
+        if len(split[0]) > 4 or len(split[2]) > 4:
+            raise Exception('Error: Numbers cannot be more than four digits.')
+
     first, second = [], []
     strips, answers = [], []
     for problem in problems:
@@ -29,4 +41,3 @@ def arithmetic_arranger(problems, *args):
         c = '    '.join(val for val in strips) + '\n'
         d = '    '.join((' ' * (len(strip) - len(str(val)))) + str(val) for val, strip in zip(answers, strips))
         return a + b + c + d
-
